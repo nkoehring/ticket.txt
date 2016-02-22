@@ -1,98 +1,107 @@
-#container .board {
-  width: 900px;
-  margin: auto;
-  margin-top: 50px;
-  padding: 4px 0 0 4px;
-  border: 4px solid silver;
+body {
+  background: #333;
+  color: #AAA;
+  font-size: 16px;
 }
 
-#container .board .column {
+body > header {
+  display: block;
+  background: #555;
+  height: 3rem;
+  padding: 0 1rem;
+}
+
+body > header > h1 {
+  display: inline;
+  color: #efef8f;
+  font-size: 2rem;
+  line-height: 3rem;
+}
+
+body > header > menu {
+  display: inline;
+  line-height: 3rem;
+  font-size: 1rem;
+  float: right;
+  margin: 0;
+  padding: 0;
+}
+
+body > header > menu > li {
   display: inline-block;
-  width: 128px;
-  opacity: 0.75;
-}
-#container .board .column:hover {
-  opacity: 1;
+  padding: 0 1rem;
 }
 
-#container .board .column .slot {
-  width: 128px;
-  height: 128px;
-  background: transparent url(slot.png) center no-repeat;
-  background-size: contain; /* slot.png is 256x256 for hires screens */
+body > header > menu > li:hover {
+  background: #efef8f;
+  color: #333;
 }
 
-.token {
-  position: absolute;
-  transition: top 1s ease-in;
-  top: 0;
-  left: 0;
-  width: 110px;
-  height: 110px;
-  margin: 5px;
-  border: 4px inset silver;
-  border-radius: 62px;
-  background: #999;
-  pointer-events: none;
-}
-.token.removal {
-  transition: top .5s ease-out;
+#tickets {
+  margin: auto;
 }
 
-#overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
+#tickets ul {
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
+  width: 21rem;
+  min-height: 5rem;
+  padding: 0 .5rem;
+  transition: width .1s ease-out;
 }
 
-#overlay .wrapper {
-  width: 800px;
-  margin: 10% auto;
-  border: 4px solid black;
-  background: rgba(255, 255, 255, .75);
-  color: black;
-  text-align: center;
-  transition: margin .2s ease-out;
+#tickets ul:hover {
+  background: #2c2c2c;
 }
 
-#overlay.game-mode .wrapper {
-  margin: 0 auto;
-  border: none;
+#tickets ul.collapsed {
+  width: 2rem;
+  background: #222;
+  margin-left: .1rem;
+}
+#tickets ul.collapsed > li.ticket {
+  visibility: hidden;
 }
 
-#overlay.game-mode #introduction {
-  display: none;
+#tickets li.ticket {
+  display: inline-block;
+  width: 20rem;
+  height: 8rem;
+  border: 1px dotted #444;
+  box-shadow: 0 0 10px #000;
+  margin: .5rem;
+  vertical-align: top;
+  transition: box-shadow .2s linear;
+  z-index: 0;
+}
+#tickets li.ticket:hover {
+  box-shadow: 0 0 15px #efef8f;
 }
 
-#player1, #player2 {
-  width: 2em;
-  height: 2em;
-  margin-right: 2em;
-  vertical-align: middle;
-}
-
-#start {
-  height: 2em;
-  vertical-align: middle;
-}
-
-#config {
-  margin: 1em 0;
-}
-
-#player1wins, #player2wins {
-  display: none;
-}
-
-#overlay.player1wins #introduction,
-#overlay.player2wins #introduction {
-  display: none;
-}
-
-#overlay.player1wins #player1wins {
+#tickets li.ticket .content {
   display: block;
+  margin: .9rem auto;
+  width: 18rem;
+  height: 4rem;
+  background: transparent;
+  border: 1px solid #444;
+  color: #efef8f;
 }
-#overlay.player2wins #player2wins {
+
+#tickets > ul > header {
   display: block;
+  font-size: 1.5rem;
+  padding-left: .6rem;
+  margin-bottom: -.8rem;
+  z-index: -1;
+}
+#tickets > ul > header:hover::before {
+  content: "collapse » "
+}
+#tickets ul.collapsed > header {
+  transform: rotate(90deg);
+}
+#tickets > ul.collapsed > header:hover::before {
+  content: ""
 }
