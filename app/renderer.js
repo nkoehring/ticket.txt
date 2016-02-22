@@ -1,9 +1,16 @@
 define("app.renderer", ["app.clickHandler"], function(Click) {
 
   var tTicket = function(){/*
-    <div class="content">{{content}}</div>
-    <div class="due-date">{{due}}</div>
-    <div class="priority">{{priority}}</div>
+    <div class="static">
+      <div class="content">{{content}}</div>
+      <!--div class="priority">{{priority}}</div-->
+      <div class="due-date">{{due}}</div>
+    </div>
+    <div class="inputs">
+      <textarea class="content" type="text">{{content}}</textarea>
+      <input class="priority" type="button" value="{{priority}}" />
+      <input class="due-date" type="date" value="{{due}}" />
+    </div>
   */}
 
   var colNames = ["backlog", "todo", "urgent", "done"],
@@ -41,13 +48,17 @@ define("app.renderer", ["app.clickHandler"], function(Click) {
         ticketContent = parseTemplateFn(tTicket)
 
     ticketContent = ticketContent
-                    .replace("{{content}}", data.text || "empty ticket")
-                    .replace("{{due}}", data.data.due || "-")
-                    .replace("{{priority}}", data.priority || "-")
+                    .replace(/{{content}}/g, data.text || "empty ticket")
+                    .replace(/{{due}}/g, data.data.due || "-")
+                    .replace(/{{priority}}/g, data.priority || "-")
 
     ticketEl.classList.add("ticket")
     ticketEl.id = ("t" + Math.round(Math.random()*1000000))
     ticketEl.innerHTML = ticketContent
+
+    if (data.priority) {
+      ticketEl.classList.add("prio-" + data.priority.toLowerCase())
+    }
 
     return ticketEl
 

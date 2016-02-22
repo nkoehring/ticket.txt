@@ -68,7 +68,8 @@ body > header > menu > li:hover {
   display: inline-block;
   width: 20rem;
   height: 8rem;
-  border: 1px dotted #444;
+  border: none;
+  border-top: 5px solid #444;
   box-shadow: 0 0 10px #000;
   margin: .5rem;
   vertical-align: top;
@@ -78,15 +79,49 @@ body > header > menu > li:hover {
 #tickets li.ticket:hover {
   box-shadow: 0 0 15px #efef8f;
 }
+#tickets li.ticket.prio-a { border-top-color: #F00; }
+#tickets li.ticket.prio-b { border-top-color: #FF0; }
+#tickets li.ticket.prio-c { border-top-color: #0F0; }
 
-#tickets li.ticket .content {
+#tickets li.ticket .static .content,
+#tickets li.ticket .inputs .content {
   display: block;
   margin: .9rem auto;
+  margin-bottom: .4rem;
   width: 18rem;
   height: 4rem;
+  color: #efef8f;
+}
+#tickets li.ticket .static .content {
   background: transparent;
   border: 1px solid #444;
+}
+
+#tickets li.ticket .inputs { display: none; }
+#tickets li.ticket.edit .inputs { display: block; }
+#tickets li.ticket.edit .static { display: none; }
+
+#tickets li.ticket .inputs input,
+#tickets li.ticket .inputs textarea {
+  background: #222;
+  border: 1px solid #444;
   color: #efef8f;
+}
+#tickets li.ticket .static .due-date,
+#tickets li.ticket .inputs input {
+  display: inline-block;
+  height: 1.5rem;
+  line-height: 1.5rem;
+  padding: 0 .5rem;
+  vertical-align: top;
+}
+#tickets li.ticket .static .due-date,
+#tickets li.ticket .inputs .priority {
+  margin-left: .8rem;
+}
+#tickets li.ticket .inputs input[type="button"] {
+  height: 1.6rem;
+  line-height: 1.6rem;
 }
 
 #tickets > ul > header {
