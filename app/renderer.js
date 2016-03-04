@@ -1,15 +1,16 @@
-define("app.renderer", ["app.clickHandler"], function(Click) {
+define("app.renderer", ["app.config", "app.toolbox", "app.clickHandler"], function(Cfg, Toolbox, Click) {
+
+  var niceTimeDiff = Toolbox.niceTimeDiff
 
   var tTicket = function(){/*
     <div class="static">
       <div class="content">{{content}}</div>
-      <!--div class="priority">{{priority}}</div-->
-      <div class="due-date">{{due}}</div>
+      <div class="due-date">{{due_or_placeholder}}</div>
     </div>
     <div class="inputs">
       <textarea class="content" type="text">{{content}}</textarea>
       <input class="priority" type="button" value="{{priority}}" />
-      <input class="due-date" type="date" value="{{due}}" />
+      <input class="due-date" type="date" placeholder="no due date" value="{{due}}" />
     </div>
   */}
 
@@ -45,20 +46,32 @@ define("app.renderer", ["app.clickHandler"], function(Click) {
   function renderTicket(data) {
 
     var ticketEl = document.createElement("li"),
-        ticketContent = parseTemplateFn(tTicket)
+        ticketContent = parseTemplateFn(tTicket),
+        niceDue = "no due date"
 
-    ticketContent = ticketContent
-                    .replace(/{{content}}/g, data.text || "empty ticket")
-                    .replace(/{{due}}/g, data.data.due || "-")
-                    .replace(/{{priority}}/g, data.priority || "-")
-
-    ticketEl.classList.add("ticket")
     ticketEl.id = ("t" + Math.round(Math.random()*1000000))
-    ticketEl.innerHTML = ticketContent
+    ticketEl.classList.add("ticket")
 
     if (data.priority) {
       ticketEl.classList.add("prio-" + data.priority.toLowerCase())
     }
+
+    if (data.due_diff) {
+
+      niceDue = niceTimeDiff(data.due_diff)
+
+      if (data.due_diff <= Cfg.due_urgent) ticketEl.classList.add("due-urgent") 
+      else if(data.due_diff <= Cfg.due_soon) ticketEl.classList.add("due-soon")
+    }
+
+    ticketContent = ticketContent
+                    .replace(/{{content}}/g, data.text || "empty ticket")
+                    .replace(/{{due_or_placeholder}}/g, niceDue)
+                    .replace(/{{due}}/g, data.data.due || "")
+                    .replace(/{{priority}}/g, data.priority || "")
+
+
+    ticketEl.innerHTML = ticketContent
 
     return ticketEl
 

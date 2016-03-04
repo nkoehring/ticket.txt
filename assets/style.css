@@ -85,6 +85,9 @@ body > header > menu > li:hover {
 #tickets li.ticket.prio-b { border-top-color: #FF0; }
 #tickets li.ticket.prio-c { border-top-color: #0F0; }
 
+#tickets li.ticket.due-urgent .static .due-date { color: #F00; }
+#tickets li.ticket.due-soon .static .due-date { color: #FF0; }
+
 #tickets li.ticket .static .content,
 #tickets li.ticket .inputs .content {
   display: block;
