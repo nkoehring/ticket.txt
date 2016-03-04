@@ -16,7 +16,8 @@ define("app.todotxt", ['app.parser'], function(Parser) {
       "some fancy:data objects any:one ?",
       "without priority and date",
       "2016-01-03 without priority, but with a date",
-      "x 2016-02-01 2016-01-01 this +task is +done already"
+      "x 2016-02-01 2016-01-01 this +task is +done already",
+      "x 2016-02-01 2016-01-01 this +task is +done too and was needed due:2016-02-01"
     ]
 
   }

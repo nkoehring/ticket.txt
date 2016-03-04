@@ -48,10 +48,35 @@ define("app.toolbox", function() {
   }
 
 
+  function renderDataset(data, options) {
+
+    var output,
+        options = options || {},
+        parentTag = options.parentTag || "<li>{{s}}</li>",
+        labelTag = options.labelTag || "<div class=\"dataset-key\">{{s}}</div>",
+        contentTag = options.contentTag || "<div class=\"dataset-value\">{{s}}</div>"
+
+    if (options && options.without) {
+
+      var toRemove = options.without
+      if (typeof toRemove === "string" ) { toRemove = [options.without] }
+
+      toRemove.forEach(function(key) { delete data[key] })
+    }
+
+    output = Object.keys(data).map(function(key) {
+      var content = labelTag.replace(/{{s}}/, key) + contentTag.replace(/{{s}}/, data[key])
+      return parentTag.replace(/{{s}}/, content)
+    })
+
+    return output.join("\n")
+
+  }
 
   return {
     toTitleCase: toTitleCase,
-    niceTimeDiff: niceTimeDiff
+    niceTimeDiff: niceTimeDiff,
+    niceDataset: renderDataset
   }
 
 })

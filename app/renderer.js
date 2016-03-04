@@ -1,11 +1,11 @@
 define("app.renderer", ["app.config", "app.toolbox", "app.clickHandler"], function(Cfg, Toolbox, Click) {
 
-  var niceTimeDiff = Toolbox.niceTimeDiff
-
   var tTicket = function(){/*
     <div class="static">
       <div class="content">{{content}}</div>
       <div class="due-date">{{due_or_placeholder}}</div>
+      <input class="show-more" type="button" value="toggle meta data" />
+      <ul class="dataset collapsed">{{dataset}}</ul>
     </div>
     <div class="inputs">
       <textarea class="content" type="text">{{content}}</textarea>
@@ -47,7 +47,8 @@ define("app.renderer", ["app.config", "app.toolbox", "app.clickHandler"], functi
 
     var ticketEl = document.createElement("li"),
         ticketContent = parseTemplateFn(tTicket),
-        niceDue = "no due date"
+        niceDue = "no due date",
+        niceDataset
 
     ticketEl.id = ("t" + Math.round(Math.random()*1000000))
     ticketEl.classList.add("ticket")
@@ -58,10 +59,14 @@ define("app.renderer", ["app.config", "app.toolbox", "app.clickHandler"], functi
 
     if (data.due_diff) {
 
-      niceDue = niceTimeDiff(data.due_diff)
+      niceDue = Toolbox.niceTimeDiff(data.due_diff)
 
       if (data.due_diff <= Cfg.due_urgent) ticketEl.classList.add("due-urgent") 
       else if(data.due_diff <= Cfg.due_soon) ticketEl.classList.add("due-soon")
+    }
+
+    if (Object.keys(data.data).length) {
+      niceDataset = Toolbox.niceDataset(data.data, {without: "due"})
     }
 
     ticketContent = ticketContent
@@ -69,6 +74,7 @@ define("app.renderer", ["app.config", "app.toolbox", "app.clickHandler"], functi
                     .replace(/{{due_or_placeholder}}/g, niceDue)
                     .replace(/{{due}}/g, data.data.due || "")
                     .replace(/{{priority}}/g, data.priority || "")
+                    .replace(/{{dataset}}/g, niceDataset || "")
 
 
     ticketEl.innerHTML = ticketContent

@@ -41,7 +41,7 @@ body > header > menu > li:hover {
   margin: auto;
 }
 
-#tickets ul {
+#tickets > ul {
   position: relative;
   display: inline-block;
   vertical-align: top;
@@ -51,17 +51,17 @@ body > header > menu > li:hover {
   transition: width .1s ease-out;
 }
 
-#tickets ul:hover {
+#tickets > ul:hover {
   background: #2c2c2c;
 }
 
-#tickets ul.collapsed {
+#tickets > ul.collapsed {
   width: 2rem;
   background: #222;
   margin-left: .1rem;
   float: right;
 }
-#tickets ul.collapsed > li.ticket {
+#tickets > ul.collapsed > li.ticket {
   visibility: hidden;
   width: 2rem;
 }
@@ -69,7 +69,7 @@ body > header > menu > li:hover {
 #tickets li.ticket {
   display: inline-block;
   width: 20rem;
-  height: 8rem;
+  min-height: 8rem;
   border: none;
   border-top: 5px solid #444;
   box-shadow: 0 0 10px #000;
@@ -120,10 +120,46 @@ body > header > menu > li:hover {
   padding: 0 .5rem;
   vertical-align: top;
 }
+#tickets li.ticket .static .show-more {
+  width: 100%;
+  height: 1rem;
+  text-align: center;
+  font-weight: bold;
+  border: none;
+  background: transparent;
+  color: #444;
+  transition: color .2s ease;
+  cursor: pointer;
+}
+#tickets li.ticket .static .show-more:hover {
+  color: #888;
+}
+
+#tickets li.ticket .static .dataset,
 #tickets li.ticket .static .due-date,
 #tickets li.ticket .inputs .priority {
   margin-left: .8rem;
 }
+
+#tickets li.ticket .static .dataset {
+  list-style: none;
+  padding: .4rem;
+  overflow: hidden;
+}
+#tickets li.ticket .static .dataset.collapsed {
+  height: 0;
+  padding: 0;
+}
+#tickets li.ticket .static .dataset .dataset-key,
+#tickets li.ticket .static .dataset .dataset-value {
+  display: inline-block;
+  vertical-align: top;
+}
+#tickets li.ticket .static .dataset .dataset-key { width: 25%; }
+#tickets li.ticket .static .dataset .dataset-key::after { content: ":"; }
+#tickets li.ticket .static .dataset .dataset-value {
+}
+
 #tickets li.ticket .inputs input[type="button"] {
   height: 1.6rem;
   line-height: 1.6rem;
@@ -139,9 +175,12 @@ body > header > menu > li:hover {
 #tickets > ul > header:hover::before {
   content: "collapse » "
 }
-#tickets ul.collapsed > header {
+#tickets > ul.collapsed > header {
   transform: rotate(90deg);
 }
 #tickets > ul.collapsed > header:hover::before {
   content: ""
 }
+
+#backlog, #done { opacity: .5; }
+#backlog:hover, #done:hover { opacity: 1; }
