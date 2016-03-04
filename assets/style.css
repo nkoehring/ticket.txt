@@ -59,9 +59,11 @@ body > header > menu > li:hover {
   width: 2rem;
   background: #222;
   margin-left: .1rem;
+  float: right;
 }
 #tickets ul.collapsed > li.ticket {
   visibility: hidden;
+  width: 2rem;
 }
 
 #tickets li.ticket {
