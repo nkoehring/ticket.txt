@@ -1,4 +1,4 @@
-define("app.renderer", ["app.config", "app.toolbox", "app.clickHandler"], function(Cfg, Toolbox, Click) {
+define("app.renderer", ["app.config", "app.toolbox", "app.domEvents"], function(Cfg, Toolbox) {
 
   var tTicket = function(){/*
     <div class="static">
@@ -23,7 +23,6 @@ define("app.renderer", ["app.config", "app.toolbox", "app.clickHandler"], functi
     if (!el) {
       var colHeader = document.createElement("header")
       colHeader.innerText = k
-      colHeader.addEventListener("click", Click.columnHeader)
 
       el = document.createElement("ul")
       el.id = k
