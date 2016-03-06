@@ -7,11 +7,11 @@ define("app.todotxt", ['app.parser'], function(Parser) {
 
     this._todos = [
       "(A) 2016-01-01 do a very important +task",
-      "(B) 2016-01-02 have some +tags and @projects due:2016-03-01",
+      "(B) 2016-01-02 have some +tags and @projects due:2016-03-07",
       "(C) priorities are super +cool for any +task",
       "due date in past due:2016-03-01",
-      "due date very close due:2016-03-05",
-      "due date not so close due:2016-03-08",
+      "due date very close due:2016-03-08",
+      "due date not so close due:2016-04-10",
       "due date far in the future due:2017-08-01",
       "some fancy:data objects any:one ?",
       "without priority and date",
