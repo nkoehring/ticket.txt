@@ -42,6 +42,14 @@ body > header > menu > li:hover {
   margin: auto;
 }
 
+#tickets a {
+  color: #efefaf;
+  text-decoration: none;
+}
+#tickets a:hover {
+  text-decoration: underline;
+}
+
 #tickets > ul {
   position: relative;
   display: inline-block;
@@ -172,6 +180,10 @@ body > header > menu > li:hover {
   padding-left: .6rem;
   margin-bottom: -.8rem;
   z-index: -1;
+  transition: margin-bottom .1s ease;
+}
+#tickets > ul > header:hover {
+  margin-bottom: 0;
 }
 #tickets > ul > header:hover::before {
   content: "collapse » "

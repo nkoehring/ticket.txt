@@ -2,13 +2,13 @@ define("app.renderer", ["app.config", "app.toolbox", "app.domEvents"], function(
 
   var tTicket = function(){/*
     <div class="static">
-      <div class="content">{{content}}</div>
+      <div class="content">{{html}}</div>
       <div class="due-date">{{due_or_placeholder}}</div>
       <input class="show-more" type="button" value="toggle meta data" />
       <ul class="dataset collapsed">{{dataset}}</ul>
     </div>
     <div class="inputs">
-      <textarea class="content" type="text">{{content}}</textarea>
+      <textarea class="content" type="text">{{raw}}</textarea>
       <input class="priority" type="button" value="{{priority}}" />
       <input class="due-date" type="date" placeholder="no due date" value="{{due}}" />
     </div>
@@ -69,7 +69,8 @@ define("app.renderer", ["app.config", "app.toolbox", "app.domEvents"], function(
     }
 
     ticketContent = ticketContent
-                    .replace(/{{content}}/g, data.text || "empty ticket")
+                    .replace(/{{html}}/g, data.html || "empty ticket")
+                    .replace(/{{raw}}/g, data.raw || "empty ticket")
                     .replace(/{{due_or_placeholder}}/g, niceDue)
                     .replace(/{{due}}/g, data.data.due || "")
                     .replace(/{{priority}}/g, data.priority || "")

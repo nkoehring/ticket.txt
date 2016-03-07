@@ -8,14 +8,17 @@ define("app.parser", ['app.config'], function(Cfg) {
 
     this.line = function(s) {
 
-      var priority = null,
+      var raw = s,
+          priority = null,
           data = {},
           state = "backlog",
           tmp = s.split(" "),
-          keywordData,
-          tags,
-          projects,
+          keywordData = {},
+          tags = [],
+          projects = [],
+          html,
           entry
+
 
       if (s[0] === "x") {
 
@@ -37,8 +40,19 @@ define("app.parser", ['app.config'], function(Cfg) {
         s = tmp.join(" ")
       }
 
-      tags = s.match(/\+[^\s]+/g) || []
-      projects = s.match(/@[^\s]+/g) || []
+      // catalogue and replace tags
+      html = s.replace(/(\+[a-zA-Z-_]+)/g, function(m) {
+        plain = m.slice(1)
+        tags.push(plain)
+        return '<a href="/tag/' + plain + '" class="tag-link">' + m + '</a>'
+      })
+
+      html = html.replace(/(@[a-zA-Z-_]+)/g, function(m) {
+        plain = m.slice(1)
+        projects.push(plain)
+        return '<a href="/prj/' + plain + '" class="prj-link">' + m + '</a>'
+      })
+
       keywordData = s.match(/[^\s]+:[^\s]+/g) || []
 
       keywordData.forEach(function(kw) {
@@ -48,11 +62,12 @@ define("app.parser", ['app.config'], function(Cfg) {
 
       entry = {
         priority: priority,
-        text: s,
+        html: html,
         tags: tags,
         projects: projects,
         data: data,
-        state: state
+        state: state,
+        raw: raw
       }
 
       /** move todos into the right columns
